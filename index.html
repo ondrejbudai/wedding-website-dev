@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Marie a Ondřej</title>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC&display=swap"
+          rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Playfair Display';
+            src: url('playfairdisplay-variablefontwght-webfont.woff2') format('woff2'),
+            url('playfairdisplay-variablefontwght-webfont.woff') format('woff'),
+            url('playfairdisplay-variablefontwght-webfont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-feature-settings: 'pnum' on, 'lnum' on;
+
+        }
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 24px;
+            font-family: 'Playfair Display', serif;
+            color: #505050;
+        }
+
+        section {
+            width: 800px;
+        }
+
+        section.important {
+            width: 600px;
+            font-size: 36px;
+            color: #505050;
+            text-align: center;
+        }
+
+        section+section {
+            margin-top: 20px;
+        }
+
+        header {
+            display: flex;
+            flex-direction: row;
+            margin: 30px 0;
+        }
+
+        header img {
+            width: 80px;
+            margin: 80px 0;
+        }
+
+        header img:first-child {
+            transform: scaleX(-1);
+        }
+
+        h1 {
+            font-family: 'Playfair Display SC', serif;
+            letter-spacing: 0.1em;
+            font-size: 72px;
+            text-align: center;
+            font-weight: normal;
+            margin: 0;
+            color: black;
+        }
+
+        h1 span {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            display: block;
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: normal;
+            color: #505050;
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 40px;
+        }
+
+        #main-photo {
+            height: 512px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        h3 {
+            font-family: 'Playfair Display SC', serif;
+            font-size: 48px;
+            font-weight: normal;
+            margin: 30px 0 20px;
+            color: #1e1e1e;
+        }
+
+        h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: normal;
+            margin: 30px 0 20px;
+            color: #1e1e1e;
+        }
+
+        h3+h4 {
+          margin-top: 0;
+        }
+
+        .plan {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .plan::before {
+            content: '';
+            position: absolute;
+            display: block;
+            height: calc(100% - 22px);
+            width: 0;
+            border-left: 4px solid #ffcaca;
+            z-index: -1;
+            margin-top: 11px;
+        }
+
+        .plan.plan-alt-color::before {
+            border-left: 4px solid #b2ccff;
+        }
+
+        .plan > li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .plan > li:last-child {
+            margin-bottom: 0;
+        }
+
+        .plan > li::before {
+            content: '';
+            margin-left: -9px;
+            display: block;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            background-color: #ff6c6c;
+            margin-right: 50px;
+        }
+
+        .plan.plan-alt-color > li::before {
+            background-color: #4b88ff;
+        }
+
+        .plan > li > .time {
+            width: 150px;
+        }
+
+        #move {
+            margin: 50px 0 20px 0;
+            color: #6f6f6f;
+        }
+
+        .map {
+            width: 600px;
+            height: 500px;
+            margin: 60px 0 30px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <img src="./bird.svg" alt="">
+    <h1>
+        Marie
+        <span>a</span>
+        Ondřej
+    </h1>
+    <img src="./bird.svg" class="right" alt="">
+</header>
+
+<h2>20. 6. 2020</h2>
+
+<img id="main-photo" src="./horalové.jpg" alt="">
+
+<h3>Časový plán</h3>
+
+<h4>Obřad</h4>
+<ul class="plan">
+    <li><span class="time">11:30</span><span>Sraz účastníků</span></li>
+    <li><span class="time">12:00</span><span>Svatební obřad</span></li>
+    <li><span class="time">12:30</span><span>Fotografování</span></li>
+</ul>
+<div id="move">~ Přesun do Josefova Dolu ~</div>
+<h4>Veselka</h4>
+<ul class="plan plan-alt-color">
+    <li><span class="time">11:30</span><span>Sraz účastníků</span></li>
+    <li><span class="time">12:00</span><span>Svatební obřad</span></li>
+    <li><span class="time">12:30</span><span>Fotografování</span></li>
+</ul>
+<h3>Obřad</h3>
+<section class="important">
+    začíná ve 12 hodin v kostele u obrázku v libereckých Ruprechticích.
+</section>
+
+<div id="map-obrad" class="map"></div>
+
+<h3>Veselka</h3>
+<section>
+    Po obřadu se svatba přesune do penzionu Ráj v Josefově Dole, který je pro nás celý k dispozici až do neděle.
+</section>
+
+<div id="map-veselka" class="map"></div>
+
+<h4>Ubytování</h4>
+<section>V penzionu je k dispozici velké množství pokojů různých dispozicí, napište nám, kolik vás bude, a my pro vás určitě nalezneme místo na spaní. Množství pokojů je velké, leč omezené, proto se prosím nezlobte, pokud Vás poprosíme o to, abyste si vzali spacák. Neboť jste našimi hosty, ubytování hradíme my.</section>
+
+<h4>Stravování</h4>
+<section>Rozhodli jsme se, že nechceme zbytečně odpoledne komplikovat, proto na naší svatbu rodinný oběd nečekejte. Místo toho bude pro všechny v průběhu odpoledne k dispozici raut, při kterém si každý přijde na své.</section>
+<section>V neděli ráno pak na Vás bude čekat snídaně.</section>
+
+<script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+<script type="text/javascript">Loader.load();</script>
+<script>
+    function initMapObrad(){
+        var center = SMap.Coords.fromWGS84(15.0722006, 50.7922547);
+        var m = new SMap(JAK.gel("map-obrad"), center, 16);
+        m.addDefaultLayer(SMap.DEF_BASE).enable();
+
+
+
+        var layer = new SMap.Layer.Marker();
+        m.addLayer(layer);
+        layer.enable();
+
+        var options = {};
+        var marker = new SMap.Marker(SMap.Coords.fromWGS84(15.0743428, 50.7946947), "Kostel", options);
+        layer.addMarker(marker);
+    }
+
+    function initMapVeselka(){
+        var center = SMap.Coords.fromWGS84(15.2405467, 50.7827283);
+        var m = new SMap(JAK.gel("map-veselka"), center, 15);
+        m.addDefaultLayer(SMap.DEF_BASE).enable();
+
+
+
+        var layer = new SMap.Layer.Marker();
+        m.addLayer(layer);
+        layer.enable();
+
+        var options = {};
+        var marker = new SMap.Marker(SMap.Coords.fromWGS84(15.2425853, 50.7847519), "Penzion", options);
+        layer.addMarker(marker);
+    }
+
+    initMapObrad();
+    initMapVeselka();
+</script>
+</body>
+</html>
