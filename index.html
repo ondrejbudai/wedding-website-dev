@@ -56,6 +56,10 @@
 
         article {
             margin-bottom: 80px;
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         article:last-child {
@@ -74,6 +78,7 @@
         p {
             margin-top: 0;
             margin-bottom: 1.5em;
+            width: 100%;
         }
 
         p:last-child {
@@ -204,6 +209,56 @@
             width: 600px;
             height: 500px;
         }
+
+        .gift-table {
+            width: 100%;
+        }
+
+        .gift-table td {
+            padding: 0 15px 20px;
+        }
+
+        .gift-table tr:last-child td {
+            padding-bottom: 0;
+        }
+
+        .gift-table td:first-child {
+            width: 100%;
+            padding-left: 0;
+        }
+
+        .gift-table td:not(:first-child) {
+            white-space: nowrap;
+        }
+
+        .gift-table td:last-child {
+            padding-right: 0;
+        }
+
+        .gift-table td:nth-child(2) {
+            text-align: right;
+            color: #6f6f6f;
+            font-size: 20px;
+        }
+
+        .gift-table td:nth-child(3) a {
+            color: #31b5ff;
+            font-size: 20px;
+        }
+
+        .gift-table td:nth-child(3) a:hover {
+            text-decoration: none;
+        }
+
+        .gift-table td:nth-child(4) button {
+            background-color: #31b5ff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -251,7 +306,9 @@
     <p class="less-important">
         V případě nepřízně počasí proběhne obřad v kostele.
     </p>
-    <article id="map-obrad" class="map"></article>
+    <article>
+        <div id="map-obrad" class="map"></div>
+    </article>
 </section>
 <section>
     <h3>Veselka</h3>
@@ -259,7 +316,9 @@
         Po obřadu se svatba přesune do penzionu Ráj v Josefově Dole, který je pro nás celý k dispozici až do neděle.
     </p>
 
-    <article id="map-veselka" class="map"></article>
+    <article>
+        <div id="map-veselka" class="map"></div>
+    </article>
 
     <article>
         <h4>Ubytování</h4>
@@ -312,6 +371,25 @@
     </p>
     <article>
         <h4>Seznam možných darů</h4>
+        <table class="gift-table">
+            <tr>
+                <td>Vysavač akumulátorový</td>
+                <td>3 000 Kč</td>
+                <td><a href="#">Ten ideální</a></td>
+                <td>
+                    <button>Chci Vám dát vysavač!</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Rýžovar</td>
+                <td>1 000 Kč</td>
+                <td><a href="#">Ten ideální</a></td>
+                <td>
+                    <button>Chci Vám dát rýžovar!</button>
+                </td>
+            </tr>
+        </table>
+
     </article>
 </section>
 
