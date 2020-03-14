@@ -30,21 +30,54 @@
 
         section {
             width: 800px;
-        }
-
-        section.important {
-            width: 600px;
-            font-size: 36px;
-            color: #505050;
-            text-align: center;
-        }
-
-        section + section {
-            margin-top: 20px;
+            margin-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         section p {
             text-align: justify;
+        }
+
+        section.important {
+            width: 600px;
+        }
+
+        section.important p {
+            text-align: center;
+            font-size: 36px;
+            color: #505050;
+        }
+
+        section.important p.less-important {
+            font-size: 24px;
+        }
+
+        article {
+            margin-bottom: 80px;
+        }
+
+        article:last-child {
+            margin-bottom: 0;
+        }
+
+        p + article {
+            margin-top: 40px;
+        }
+
+        article.wip p {
+            font-size: 24px;
+            color: #6f6f6f;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 1.5em;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
         }
 
         header {
@@ -90,26 +123,25 @@
             height: 512px;
             width: 100%;
             object-fit: cover;
+            margin-bottom: 40px;
         }
 
         h3 {
             font-family: 'Playfair Display SC', serif;
             font-size: 48px;
             font-weight: normal;
-            margin: 80px 0 40px;
+            margin: 0 0 40px;
             color: #1e1e1e;
+            text-align: center;
         }
 
         h4 {
             font-family: 'Playfair Display', serif;
             font-size: 36px;
             font-weight: normal;
-            margin: 80px 0 40px;
+            margin: 0 0 40px;
             color: #1e1e1e;
-        }
-
-        h3 + h4 {
-            margin-top: 0;
+            text-align: center;
         }
 
         .plan {
@@ -164,18 +196,13 @@
         }
 
         #move {
-            margin: 50px 0 20px 0;
+            margin: -30px 0 40px 0;
             color: #6f6f6f;
-        }
-
-        #move + h4 {
-            margin-top: 20px;
         }
 
         .map {
             width: 600px;
             height: 500px;
-            margin: 60px 0 0;
         }
     </style>
 </head>
@@ -194,80 +221,99 @@
 
 <img id="main-photo" src="./horalové.jpg" alt="">
 
-<h3>Časový plán</h3>
-
-<h4>Obřad</h4>
-<ul class="plan">
-    <li><span class="time">11:30</span><span>Sraz účastníků</span></li>
-    <li><span class="time">12:00</span><span>Svatební obřad</span></li>
-    <li><span class="time">12:45</span><span>Fotografování</span></li>
-</ul>
-<div id="move">~ Přesun do Josefova Dolu ~</div>
-<h4>Veselka</h4>
-
-<section>
-    <p>Na harmonogramu pracujeme.</p>
-    <p>V plánu máme krájení dortu, tanec, nějaké ty hry a hlavně dobré jídlo. Vše včas upřesníme</p>
-</section>
-
-<!--<ul class="plan plan-alt-color">-->
-<!--    <li><span class="time">11:30</span><span>Sraz účastníků</span></li>-->
-<!--</ul>-->
-<h3>Obřad</h3>
 <section class="important">
-    začíná ve 12 hodin na louce u kostela Matky Boží U Obrázku v libereckých Ruprechticích. V případě nepřízně počasí
-    proběhne obřad v kostele.
+    <h3>Časový plán</h3>
+    <article>
+        <h4>Obřad</h4>
+        <ul class="plan">
+            <li><span class="time">11:30</span><span>Sraz účastníků</span></li>
+            <li><span class="time">12:00</span><span>Svatební obřad</span></li>
+            <li><span class="time">12:45</span><span>Fotografování</span></li>
+        </ul>
+    </article>
+    <div id="move">~ Přesun do Josefova Dolu ~</div>
+    <article class="wip">
+        <h4>Veselka</h4>
+        <p>Na harmonogramu pracujeme.</p>
+        <p>V plánu máme krájení dortu, tanec, nějaké ty hry a hlavně dobré jídlo. Vše včas upřesníme.</p>
+        <!--<ul class="plan plan-alt-color">-->
+        <!--    <li><span class="time">11:30</span><span>Sraz účastníků</span></li>-->
+        <!--</ul>-->
+    </article>
 </section>
 
-<div id="map-obrad" class="map"></div>
 
-<h3>Veselka</h3>
-<section>
-    Po obřadu se svatba přesune do penzionu Ráj v Josefově Dole, který je pro nás celý k dispozici až do neděle.
-</section>
-
-<div id="map-veselka" class="map"></div>
-
-<h4>Ubytování</h4>
-<section>
-    <p>V penzionu je k dispozici velké množství pokojů různých dispozic. Napište nám, kolik Vás bude, a my pro
-        Vás určitě nalezneme místo na spaní. Množství pokojů je velké, leč omezené, proto se, prosím, nezlobte, pokud
-        Vás
-        po\e o to, abyste si vzali spacák. Neboť jste našimi hosty, ubytování hradíme my.
-    </p>
-</section>
-
-<h4>Stravování</h4>
-<section>
+<section class="important">
+    <h3>Obřad</h3>
     <p>
-        Rozhodli jsme se, že nechceme odpoledne zbytečně komplikovat, proto na naší svatbě rodinný oběd nečekejte.
-        Místo toho bude pro všechny v průběhu odpoledne k dispozici raut, při kterém si každý přijde na své. Pokud máte
-        nějaké dietní požadavky, dejte nám vědět, ať Vám můžeme co nejlépe vyhovět.
+        začíná ve 12 hodin na louce u kostela Matky Boží U Obrázku v libereckých Ruprechticích.
     </p>
-</section>
-<section>V neděli ráno pak na Vás bude čekat snídaně.</section>
-
-<h4>Vaše účast a doprava</h4>
-<section>Rádi Vás uvidíme na všech částech naší svatby, ovšem pochopíme, pokud se některé části nebudete chtít
-    zúčastnit.
+    <p class="less-important">
+        V případě nepřízně počasí proběhne obřad v kostele.
+    </p>
+    <article id="map-obrad" class="map"></article>
 </section>
 <section>
-    V případě, že budete chtít z odpoledního programu odjet dříve, budeme mít k dispozici řidiče s autem, který Vás
-    dopraví z Josefova Dolu do Liberce a okolí. Prosíme Vás, abyste se nám v tomto případě co nejdříve ozvali, abychom
-    mohli tyto přesuny naplánovat.
-</section>
+    <h3>Veselka</h3>
+    <p>
+        Po obřadu se svatba přesune do penzionu Ráj v Josefově Dole, který je pro nás celý k dispozici až do neděle.
+    </p>
 
-<h3>Svatební dary</h3>
-<section>Rádi bychom nejprve připomněli, že dar není v žádném případě povinnost, jsme moc rádi už jenom za to, že na
-    naši svatbu dorazíte.
-</section>
-<section>Nicméně jsme již slyšeli, že někteří nám opravdu chcete něco dát. Pro tyto případy máme následující seznam, ve
-    kterém si můžete zarezervovat, čím byste nás chtěli obdarovat.
-</section>
+    <article id="map-veselka" class="map"></article>
 
-<h4>Seznam možných darů</h4>
+    <article>
+        <h4>Ubytování</h4>
+        <p>
+            V penzionu je k dispozici velké množství pokojů různých dispozic. Napište nám, kolik Vás bude, a my pro
+            Vás určitě nalezneme místo na spaní. Množství pokojů je velké, leč omezené, proto se, prosím, nezlobte,
+            pokud
+            Vás poprosíme o to, abyste si vzali spacák. Neboť jste našimi hosty, ubytování hradíme my.
+        </p>
+    </article>
 
-sa
+    <article>
+        <h4>Stravování</h4>
+        <p>
+            Rozhodli jsme se, že nechceme odpoledne zbytečně komplikovat, proto na naší svatbě rodinný oběd nečekejte.
+            Místo toho bude pro všechny v průběhu odpoledne k dispozici raut, při kterém si každý přijde na své. Pokud
+            máte
+            nějaké dietní požadavky, dejte nám vědět, ať Vám můžeme co nejlépe vyhovět.
+        </p>
+        <p>
+            V neděli ráno pak na Vás bude čekat snídaně.
+        </p>
+    </article>
+
+    <article>
+        <h4>Vaše účast a doprava</h4>
+        <p>
+            Rádi Vás uvidíme na všech částech naší svatby, ovšem pochopíme, pokud se některé části nebudete chtít
+            zúčastnit.
+        </p>
+        <p>
+
+            V případě, že budete chtít z odpoledního programu odjet dříve, budeme mít k dispozici řidiče s autem, který
+            Vás
+            dopraví z Josefova Dolu do Liberce a okolí. Prosíme Vás, abyste se nám v tomto případě co nejdříve ozvali,
+            abychom
+            mohli tyto přesuny naplánovat.
+        </p>
+    </article>
+</section>
+<section>
+    <h3>Svatební dary</h3>
+    <p>
+        Rádi bychom nejprve připomněli, že dar není v žádném případě povinnost, jsme moc rádi už jenom za to, že na
+        naši svatbu dorazíte.
+    </p>
+    <p>
+        Nicméně jsme již slyšeli, že někteří nám opravdu chcete něco dát. Pro tyto případy máme následující seznam, ve
+        kterém si můžete zarezervovat, čím byste nás chtěli obdarovat.
+    </p>
+    <article>
+        <h4>Seznam možných darů</h4>
+    </article>
+</section>
 
 <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
 <script type="text/javascript">Loader.load();</script>
