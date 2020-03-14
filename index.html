@@ -17,6 +17,7 @@
             font-feature-settings: 'pnum' on, 'lnum' on;
 
         }
+
         body {
             margin: 0;
             display: flex;
@@ -38,8 +39,12 @@
             text-align: center;
         }
 
-        section+section {
+        section + section {
             margin-top: 20px;
+        }
+
+        section p {
+            text-align: justify;
         }
 
         header {
@@ -103,8 +108,8 @@
             color: #1e1e1e;
         }
 
-        h3+h4 {
-          margin-top: 0;
+        h3 + h4 {
+            margin-top: 0;
         }
 
         .plan {
@@ -195,18 +200,23 @@
 <ul class="plan">
     <li><span class="time">11:30</span><span>Sraz účastníků</span></li>
     <li><span class="time">12:00</span><span>Svatební obřad</span></li>
-    <li><span class="time">12:30</span><span>Fotografování</span></li>
+    <li><span class="time">12:45</span><span>Fotografování</span></li>
 </ul>
 <div id="move">~ Přesun do Josefova Dolu ~</div>
 <h4>Veselka</h4>
-<ul class="plan plan-alt-color">
-    <li><span class="time">11:30</span><span>Sraz účastníků</span></li>
-    <li><span class="time">12:00</span><span>Svatební obřad</span></li>
-    <li><span class="time">12:30</span><span>Fotografování</span></li>
-</ul>
+
+<section>
+    <p>Na harmonogramu pracujeme.</p>
+    <p>V plánu máme krájení dortu, tanec, nějaké ty hry a hlavně dobré jídlo. Vše včas upřesníme</p>
+</section>
+
+<!--<ul class="plan plan-alt-color">-->
+<!--    <li><span class="time">11:30</span><span>Sraz účastníků</span></li>-->
+<!--</ul>-->
 <h3>Obřad</h3>
 <section class="important">
-    začíná ve 12 hodin v kostele u obrázku v libereckých Ruprechticích.
+    začíná ve 12 hodin na louce u kostela Matky Boží U Obrázku v libereckých Ruprechticích. V případě nepřízně počasí
+    proběhne obřad v kostele.
 </section>
 
 <div id="map-obrad" class="map"></div>
@@ -219,30 +229,53 @@
 <div id="map-veselka" class="map"></div>
 
 <h4>Ubytování</h4>
-<section>V penzionu je k dispozici velké množství pokojů různých dispozicí, napište nám, kolik vás bude, a my pro vás určitě nalezneme místo na spaní. Množství pokojů je velké, leč omezené, proto se prosím nezlobte, pokud Vás poprosíme o to, abyste si vzali spacák. Neboť jste našimi hosty, ubytování hradíme my.</section>
+<section>
+    <p>V penzionu je k dispozici velké množství pokojů různých dispozic. Napište nám, kolik Vás bude, a my pro
+        Vás určitě nalezneme místo na spaní. Množství pokojů je velké, leč omezené, proto se, prosím, nezlobte, pokud
+        Vás
+        po\e o to, abyste si vzali spacák. Neboť jste našimi hosty, ubytování hradíme my.
+    </p>
+</section>
 
 <h4>Stravování</h4>
-<section>Rozhodli jsme se, že nechceme zbytečně odpoledne komplikovat, proto na naší svatbu rodinný oběd nečekejte. Místo toho bude pro všechny v průběhu odpoledne k dispozici raut, při kterém si každý přijde na své.</section>
+<section>
+    <p>
+        Rozhodli jsme se, že nechceme odpoledne zbytečně komplikovat, proto na naší svatbě rodinný oběd nečekejte.
+        Místo toho bude pro všechny v průběhu odpoledne k dispozici raut, při kterém si každý přijde na své. Pokud máte
+        nějaké dietní požadavky, dejte nám vědět, ať Vám můžeme co nejlépe vyhovět.
+    </p>
+</section>
 <section>V neděli ráno pak na Vás bude čekat snídaně.</section>
 
 <h4>Vaše účast a doprava</h4>
-<section>Rádi Vás uvidíme na všech částech naší svatby, ovšem pochopíme, pokud se některé části nebudete chtít zúčastnit.</section>
-<section>Pokud se takto rozhodnete, mám k dispozici auto a řidiče, který vás dopraví z Josefova Dolu do Liberce a okolí. Prosím Vás, abyste se nám v tomto případě co nejdříve ozvali, abychom mohli tyto přesuny naplánovat.</section>
+<section>Rádi Vás uvidíme na všech částech naší svatby, ovšem pochopíme, pokud se některé části nebudete chtít
+    zúčastnit.
+</section>
+<section>
+    V případě, že budete chtít z odpoledního programu odjet dříve, budeme mít k dispozici řidiče s autem, který Vás
+    dopraví z Josefova Dolu do Liberce a okolí. Prosíme Vás, abyste se nám v tomto případě co nejdříve ozvali, abychom
+    mohli tyto přesuny naplánovat.
+</section>
 
 <h3>Svatební dary</h3>
-<section>Rádi bychom nejprve připomněli, že dar není v žádném případě povinnost, jsme moc rádi už jenom za to, že na naši svatbu dorazíte.</section>
-<section>Nicméně již jsme slyšeli, že někteří nám opravdu chcete něco dát. Pro tyto případy máme následující seznam, ve kterém si můžete zarezervovat, co nám chcete dát.</section>
+<section>Rádi bychom nejprve připomněli, že dar není v žádném případě povinnost, jsme moc rádi už jenom za to, že na
+    naši svatbu dorazíte.
+</section>
+<section>Nicméně již jsme slyšeli, že někteří nám opravdu chcete něco dát. Pro tyto případy máme následující seznam, ve
+    kterém si můžete zarezervovat, co nám chcete dát.
+</section>
 
 <h4>Seznam možných darů</h4>
+
+sa
 
 <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
 <script type="text/javascript">Loader.load();</script>
 <script>
-    function initMapObrad(){
+    function initMapObrad() {
         var center = SMap.Coords.fromWGS84(15.0722006, 50.7922547);
         var m = new SMap(JAK.gel("map-obrad"), center, 16);
         m.addDefaultLayer(SMap.DEF_BASE).enable();
-
 
 
         var layer = new SMap.Layer.Marker();
@@ -254,11 +287,10 @@
         layer.addMarker(marker);
     }
 
-    function initMapVeselka(){
+    function initMapVeselka() {
         var center = SMap.Coords.fromWGS84(15.2405467, 50.7827283);
         var m = new SMap(JAK.gel("map-veselka"), center, 15);
         m.addDefaultLayer(SMap.DEF_BASE).enable();
-
 
 
         var layer = new SMap.Layer.Marker();
