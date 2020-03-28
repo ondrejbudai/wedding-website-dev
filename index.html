@@ -220,6 +220,7 @@
 
         .gift-table td {
             padding: 0 15px 20px;
+            vertical-align: baseline;
         }
 
         .gift-table tr:last-child td {
@@ -255,13 +256,29 @@
         }
 
         .gift-table td:nth-child(4) button {
-            background-color: #31b5ff;
-            color: white;
+            background-color: #0073ff;
+            transition: background-color 150ms ease-in-out;
             border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
+            color: white;
+            margin: 4px;
+            border-radius: 5px;
+            padding: 5px 10px;
             font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-size: 18px;
+        }
+
+        .gift-table td:nth-child(4) button:hover {
+            cursor: pointer;
+            background-color: #004897;
+        }
+
+        .gift-table td:nth-child(4) button:focus {
+            border: 4px solid #6fb3f1;
+            margin: 0;
+        }
+
+        .gift-table td:nth-child(4) button::-moz-focus-inner {
+            border: 0;
         }
     </style>
 </head>
@@ -369,36 +386,21 @@
         Rádi bychom nejprve připomněli, že dar není v žádném případě povinnost, jsme moc rádi už jenom za to, že na
         naši svatbu dorazíte.
     </p>
-    <!--    <p>-->
-    <!--        Nicméně jsme již slyšeli, že někteří nám opravdu chcete něco dát. Pro tyto případy máme následující seznam, ve-->
-    <!--        kterém si můžete zarezervovat, čím byste nás chtěli obdarovat.-->
-    <!--    </p>-->
     <p>
-        Nicméně jsme již slyšeli, že někteří nám opravdu chcete něco dát. Pro tyto případy připravujeme seznam, ve
-        kterém si budete moci zarezervovat, čím byste nás chtěli obdarovat.
+        Nicméně jsme již slyšeli, že někteří nám opravdu chcete něco dát. Pro tyto případy máme následující seznam, ve
+        kterém si můžete zarezervovat, čím byste nás chtěli obdarovat.
     </p>
-    <!--    <article>-->
-    <!--        <h4>Seznam možných darů</h4>-->
-    <!--        <table class="gift-table">-->
-    <!--            <tr>-->
-    <!--                <td>Vysavač akumulátorový</td>-->
-    <!--                <td>3 000 Kč</td>-->
-    <!--                <td><a href="#">Ten ideální</a></td>-->
-    <!--                <td>-->
-    <!--                    <button>Chci Vám dát vysavač!</button>-->
-    <!--                </td>-->
-    <!--            </tr>-->
-    <!--            <tr>-->
-    <!--                <td>Rýžovar</td>-->
-    <!--                <td>1 000 Kč</td>-->
-    <!--                <td><a href="#">Ten ideální</a></td>-->
-    <!--                <td>-->
-    <!--                    <button>Chci Vám dát rýžovar!</button>-->
-    <!--                </td>-->
-    <!--            </tr>-->
-    <!--        </table>-->
+    <article>
+        <h4>Seznam možných darů</h4>
+        <p id="gift-table-loading">
+            Načítám...
+        </p>
+        <table id="gift-table" class="gift-table">
+            <tbody>
+            </tbody>
+        </table>
 
-    <!--    </article>-->
+    </article>
 </section>
 <section class="important">
     <h3>Kontakty</h3>
@@ -457,6 +459,67 @@
 
     initMapObrad();
     initMapVeselka();
+</script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyD8e6uHC37oX4yyuJzJhrDR3OJdlVumha8",
+        authDomain: "wedding-website-271817.firebaseapp.com",
+        databaseURL: "https://wedding-website-271817.firebaseio.com",
+        projectId: "wedding-website-271817",
+        storageBucket: "wedding-website-271817.appspot.com",
+        messagingSenderId: "337939590578",
+        appId: "1:337939590578:web:9e20714f7e0bad2def88ab"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function formatPrice(price) {
+        const thousands = Math.floor(price / 1000);
+
+        if (thousands > 0) {
+            const rest = price - thousands * 1000;
+            const restStr = rest.toString().padStart(3, "0");
+            return `${thousands} ${restStr} Kč`;
+        }
+
+        return `${price} Kč`;
+    }
+
+    function addGiftToGiftTable(giftTable, gift) {
+        const row = document.createElement("tr")
+        for (let i = 0; i < 4; i++) {
+            row.appendChild(document.createElement("td"))
+        }
+
+        row.children[0].innerHTML = gift.name;
+        row.children[1].innerHTML = formatPrice(gift.price);
+        row.children[2].innerHTML = `<a href="${gift.link}">${gift.linkText}</a>`;
+        row.children[3].innerHTML = `<button>To Vám chci dát!</button>`;
+
+        giftTable.appendChild(row);
+
+    }
+
+    window.onload = () => {
+        const giftTable = document.getElementById("gift-table").children[0];
+        db.collection("gifts").orderBy('price', 'asc').get().then((gifts) => {
+            gifts.forEach((giftRef) => {
+                const gift = giftRef.data();
+                addGiftToGiftTable(giftTable, gift);
+            })
+
+            document.getElementById("gift-table-loading").remove();
+        })
+    }
 </script>
 </body>
 </html>
