@@ -255,30 +255,121 @@
             text-decoration: none;
         }
 
-        .gift-table td:nth-child(4) button {
+        button {
             background-color: #0073ff;
             transition: background-color 150ms ease-in-out;
             border: none;
             color: white;
-            margin: 4px;
             border-radius: 5px;
             padding: 5px 10px;
             font-family: 'Playfair Display', serif;
             font-size: 18px;
         }
 
-        .gift-table td:nth-child(4) button:hover {
+        button:hover {
             cursor: pointer;
             background-color: #004897;
         }
 
-        .gift-table td:nth-child(4) button:focus {
-            border: 4px solid #6fb3f1;
-            margin: 0;
+        button:focus {
+            box-shadow: 0 0 0 4px #6fb3f1;
         }
 
-        .gift-table td:nth-child(4) button::-moz-focus-inner {
+        button::-moz-focus-inner {
             border: 0;
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        #modal .modal-content {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            border: #6f6f6f;
+            border-radius: 5px;
+        }
+
+        #modal .modal-content h5 {
+            font-size: 36px;
+            color: black;
+            font-weight: normal;
+            margin: 0 0 40px;
+        }
+
+        #modal .modal-content .modal-text {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        #modal .modal-content button {
+            width: 200px;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+
+        #modal .modal-content button.cancel {
+            background-color: #6f6f6f;
+        }
+
+        #modal .modal-content button.cancel:hover {
+            background-color: #444444;
+        }
+
+        #modal .modal-content .donate {
+            margin-bottom: 40px;
+        }
+
+        #modal .modal-content .donate {
+            display: flex;
+        }
+
+        #modal .modal-content .input-donate {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            width: 80px;
+            margin: 0 5px 0 10px;
+            height: 33px;
+            border-bottom: 1px solid black;
+            text-align: right;
+        }
+
+        .body-modal-open {
+            overflow: hidden;
+        }
+
+        input[type=number] {
+            border: none;
+            border-bottom: 1px solid black;
+            font-size: 24px;
+            -moz-appearance: textfield;
+            text-align: right;
+            width: 70px;
+            font-family: 'Playfair Display', serif;
+            outline: none;
+        }
+
+        input[type=number]:focus {
+            box-shadow: none;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
     </style>
 </head>
@@ -423,6 +514,22 @@
         </p>
     </article>
 </section>
+<div id="modal">
+    <div class="modal-content">
+        <h5 class="modal-header">Opravdu nám chceš dát 6 skleniček na červené?</h5>
+        <div class="donate">
+            <div>Zadej kolik:</div>
+            <div><input type="number" class="input-donate"></div>
+            <div>Kč</div>
+        </div>
+        <p class="modal-text modal-donation-info">Žádnou platební bránu nemáme, prostě si to předáme osobně. :)</p>
+        <p class="modal-text">Jakmile klikneš na ano, už to nelze vrátit...</p>
+        <div class="modal-buttons">
+            <button class="submit">Ano!</button>
+            <button class="cancel" onclick="hideModal()">Ne</button>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
 <script type="text/javascript">Loader.load();</script>
@@ -481,6 +588,8 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    const giftTable = document.getElementById("gift-table").children[0];
+    const giftTableLoading = document.getElementById("gift-table-loading");
 
     function formatPrice(price) {
         const thousands = Math.floor(price / 1000);
@@ -488,37 +597,153 @@
         if (thousands > 0) {
             const rest = price - thousands * 1000;
             const restStr = rest.toString().padStart(3, "0");
-            return `${thousands} ${restStr} Kč`;
+            return `${thousands} ${restStr}`;
         }
 
-        return `${price} Kč`;
+        return `${price}`;
     }
 
-    function addGiftToGiftTable(giftTable, gift) {
+    function addGiftToGiftTable(giftTable, gift, giftId) {
         const row = document.createElement("tr")
         for (let i = 0; i < 4; i++) {
             row.appendChild(document.createElement("td"))
         }
 
-        row.children[0].innerHTML = gift.name;
-        row.children[1].innerHTML = formatPrice(gift.price);
+        row.children[0].textContent = gift.name;
+        if (gift.taken === undefined) {
+            row.children[1].textContent = `${formatPrice(gift.collected)} / ${formatPrice(gift.price)} Kč`;
+        } else {
+            row.children[1].textContent = formatPrice(gift.price) + ' Kč';
+        }
         row.children[2].innerHTML = `<a href="${gift.link}">${gift.linkText}</a>`;
-        row.children[3].innerHTML = `<button>To Vám chci dát!</button>`;
+        if (gift.taken) {
+            row.children[3].textContent = 'Už rezervované';
+        } else if (gift.taken === undefined && gift.collected === gift.price) {
+            row.children[3].textContent = 'Už vybrané';
+        } else {
+            const button = document.createElement("button");
+            button.onclick = () => {
+                showModal(giftId, gift);
+            }
+
+            if (gift.taken === undefined) {
+                button.innerText = "Na to chci přispět!";
+            } else {
+                button.innerText = "To Vám chci dát!";
+            }
+
+            row.children[3].appendChild(button);
+        }
+
 
         giftTable.appendChild(row);
+    }
 
+    function donateToGift(giftId, gift, amount) {
+        hideModal();
+        setGiftTableLoading(true);
+
+        const giftRef = db.collection("gifts").doc(giftId);
+        giftRef.set({
+            collected: gift.collected + amount
+        }, {merge: true})
+            .then(load)
+            .then(() => setGiftTableLoading(false));
+    }
+
+    function takeGift(giftId) {
+        hideModal();
+        setGiftTableLoading(true);
+
+        const giftRef = db.collection("gifts").doc(giftId);
+        giftRef.set({
+            taken: true
+        }, {merge: true})
+            .then(load)
+            .then(() => setGiftTableLoading(false));
+    }
+
+    function setGiftTableLoading(loading) {
+        if (loading) {
+            giftTable.style.display = "none";
+            giftTableLoading.style.display = "block";
+        } else {
+            giftTable.style.display = "table";
+            giftTableLoading.style.display = "none";
+        }
+    }
+
+    function load() {
+        return new Promise((resolve) => {
+            giftTable.textContent = '';
+            db.collection("gifts").orderBy('price', 'asc').get().then((gifts) => {
+                gifts.forEach((giftRef) => {
+                    const gift = giftRef.data();
+                    addGiftToGiftTable(giftTable, gift, giftRef.id);
+                })
+                resolve();
+            })
+        });
     }
 
     window.onload = () => {
-        const giftTable = document.getElementById("gift-table").children[0];
-        db.collection("gifts").orderBy('price', 'asc').get().then((gifts) => {
-            gifts.forEach((giftRef) => {
-                const gift = giftRef.data();
-                addGiftToGiftTable(giftTable, gift);
-            })
+        load().then(() => {
+            setGiftTableLoading(false);
+        });
+    };
 
-            document.getElementById("gift-table-loading").remove();
-        })
+    const modal = document.getElementById("modal");
+    const modalHeader = modal.getElementsByClassName("modal-header")[0];
+    const modalSubmit = document.getElementsByClassName("submit")[0];
+    const modalDonate = document.getElementsByClassName("donate")[0];
+    const modalDonateInput = document.getElementsByClassName("input-donate")[0];
+    const modalDonateInfo = document.getElementsByClassName("modal-donation-info")[0];
+
+    function betterParseUint(str) {
+        if (/^[0-9]+$/.test(str)) {
+            return Number(str);
+        }
+
+        return NaN;
+    }
+
+    function showModal(giftId, gift) {
+        modal.style.display = "flex";
+        modalDonate.style.display = "none";
+        modalDonateInfo.style.display = "none";
+        document.body.classList.add("body-modal-open");
+
+        if (gift.taken === undefined) {
+            modalHeader.innerText = `Opravdu nám chceš přispět na ${gift.modal}?`;
+            modalDonate.style.display = "flex";
+            modalDonateInfo.style.display = "block";
+            const sendFn = () => {
+                const amountInput = modalDonateInput.value;
+                modalDonateInput.value = "";
+                const amount = betterParseUint(amountInput)
+                if (isNaN(amount)) {
+                    alert("Zadejte číslo!")
+                    return;
+                }
+                const remainder = gift.price - gift.collected;
+                if (amount > remainder) {
+                    alert("To je moc!")
+                    return;
+                }
+                donateToGift(giftId, gift, amount);
+            };
+            modalSubmit.onclick = sendFn;
+        } else {
+            modalHeader.innerText = `Opravdu nám chceš dát ${gift.modal}?`;
+            modalSubmit.onclick = () => {
+                takeGift(giftId);
+            };
+        }
+    }
+
+    function hideModal() {
+        modal.style.display = "none";
+        document.body.classList.remove("body-modal-open");
     }
 </script>
 </body>
